@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class UIBase
 {
-    protected VisualElement _root;
+    protected GameObject _parent;
 
     public virtual void Init()
     {
@@ -14,11 +14,11 @@ public class UIBase
 
     public virtual void Show()
     {
-        _root.style.display = DisplayStyle.Flex;
+        _parent.gameObject.SetActive(true);
     }
 
     public virtual void Hide()
     {
-        _root.style.display = DisplayStyle.None;
+        _parent.gameObject.SetActive(false);
     }
 }

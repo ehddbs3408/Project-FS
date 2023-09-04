@@ -9,11 +9,11 @@ public class ScenarioData
     public int id;
     public string name;
     public string text;
-    public string spriteNum;
+    public int spriteNum;
     public int backgroundNum;
     public int navigationNum;
     public int easeNum;
     public int interfaceNum;
-    public int choice;
+    public string choice;
     public int next;
 }

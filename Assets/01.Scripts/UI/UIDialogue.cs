@@ -15,11 +15,14 @@ public class UIDialogue : UIBase
     private TextMeshProUGUI _sentenceText;
     #endregion
 
-    private Image _image;
+    private GameObject _choiceBoxTemp;
+
+    private Image _backGroundImage;
+    private Image _charImage;
 
     private string _currentScenarioName;
     private TextAsset _currentScenarioTextAsset;
-    private List<ScenarioData> _scenarioDatas = new List<ScenarioData>();
+    private Dictionary<int,ScenarioData> _scenarioData = new Dictionary<int,ScenarioData>();
 
     private Coroutine _coroutine;
     private string _curSentence = "";
@@ -27,7 +30,7 @@ public class UIDialogue : UIBase
     private bool _isChoise = false;
 
 
-    private int _currentScenarioLine = 0;
+    private int _currentScenarioLine = 1;
     public override void Init()
     {
         _parent = GameObject.Find("UIDialogue");
@@ -36,16 +39,18 @@ public class UIDialogue : UIBase
         _dialogue = _parent.transform.Find("Dialogue");
         _scroll = _parent.transform.Find("Scroll");
         _content = _scroll.transform.Find("Viewport/Content");
-        _content.gameObject.SetActive(false);
 
-        _image = _face.transform.Find("Sprite").GetComponent<UnityEngine.UI.Image>();
+        _backGroundImage = _parent.transform.Find("BackGround").GetComponent<UnityEngine.UI.Image>();
+        _charImage = _face.transform.Find("Sprite").GetComponent<UnityEngine.UI.Image>();
 
         Debug.Log(_dialogue.gameObject.name);
 
         _nameText = _dialogue.transform.Find("Name/NameText").GetComponent<TextMeshProUGUI>();
         _sentenceText = _dialogue.transform.Find("Text/Sentence").GetComponent<TextMeshProUGUI>();
 
-        _coroutine = UIManager.Instance.StartCoroutine(WriteTextLine(_curSentence));
+        _coroutine = UIManager.Instance.StartCoroutine(WriteTextLine(_curSentence,"0"));
+
+        _choiceBoxTemp = GameManager.Instance.ResourceManager_.Load<GameObject>($"Prefab/ChoiceBox");
     }
 
     public void StartScenario(TextAsset scenario)
@@ -63,7 +68,7 @@ public class UIDialogue : UIBase
             newData.id = int.Parse(scenarioInfo[0]);
             newData.name = scenarioInfo[1];
             newData.text = scenarioInfo[2];
-            newData.spriteNum = int.Parse(scenarioInfo[3] == "" ? "0" : scenarioInfo[3]);
+            newData.spriteNum = scenarioInfo[3];
             newData.backgroundNum = int.Parse(scenarioInfo[4] == "" ? "0" : scenarioInfo[4]);
             newData.navigationNum = int.Parse(scenarioInfo[5] == "" ? "0" : scenarioInfo[5]);
             newData.easeNum = int.Parse(scenarioInfo[6] == "" ? "0" : scenarioInfo[6]);
@@ -71,7 +76,7 @@ public class UIDialogue : UIBase
             newData.choice = scenarioInfo[8];
             newData.next = int.Parse(scenarioInfo[9] == "" ? "0" : scenarioInfo[9]);
 
-            _scenarioDatas.Add(newData);
+            _scenarioData.Add(newData.id,newData);
         }
 
         NextStory();
@@ -87,43 +92,81 @@ public class UIDialogue : UIBase
             return;
         }
         if (_isChoise) return;
-        if (_currentScenarioLine >= _scenarioDatas.Count) return;
+        if (_currentScenarioLine > _scenarioData.Count) return;
 
-        ScenarioData data = _scenarioDatas[_currentScenarioLine];
+       
+        ScenarioData data = _scenarioData[_currentScenarioLine];
         _nameText.SetText(data.name);
         _curSentence = data.text;
-        _coroutine = UIManager.Instance.StartCoroutine(WriteTextLine(_curSentence));
-       
+        _coroutine = UIManager.Instance.StartCoroutine(WriteTextLine(_curSentence,data.choice));
+        Debug.Log($"start TextLine {_currentScenarioLine}");
 
-        Debug.Log($"spriteNum : {data.spriteNum}");
-        _image.sprite = GameManager.Instance.ResourceManager_.Load<Sprite>($"Image/Char/{data.spriteNum}");
-        if (data.choice != "")
+        _backGroundImage.sprite = GameManager.Instance.ResourceManager_.Load<Sprite>($"Image/BackGround/{data.backgroundNum}");
+        _charImage.sprite = GameManager.Instance.ResourceManager_.Load<Sprite>($"Image/Char/{data.spriteNum}");
+
+        if(data.next != 0)
         {
-            OnChoice(data.choice);
-            _isChoise = true;
+            Debug.Log($"Next TextLine {data.next}");
+            _currentScenarioLine = data.next;
+            return;
         }
         _currentScenarioLine++;
 
     }
     public void OnChoice(string choiceText)
     {
+        _content.gameObject.SetActive(true);
         string[] choices = choiceText.Split(":"); 
 
+        foreach (string choice in choices)
+        {
+            string[] ss = choice.Split("=");
+            GameObject go = GameObject.Instantiate(_choiceBoxTemp);
+            TextMeshProUGUI text = go.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+            text.SetText(ss[0]);
+
+            Button button = go.AddComponent<Button>();
+            button.onClick.AddListener(() => {
+                int a = int.Parse(ss[1]);
+                _currentScenarioLine = a;
+                _isChoise = false;
+                NextStory();
+                
+                DeletChoiceBox();
+            });
+
+            go.transform.SetParent(_content);
+            go.SetActive(true);
+        }
     }
-    public IEnumerator WriteTextLine(string text)
+    public void DeletChoiceBox()
+    {
+        for(int i = 0;i<_content.childCount;i++)
+        {
+            GameManager.Instance.ResourceManager_.Destroy(_content.GetChild(i).gameObject);
+        }
+    }
+    public IEnumerator WriteTextLine(string text,string choiceData)
     {
         if (text == null || text == "") yield break;
 
         _isTextLine =  true;
 
         char[] texts = text.ToCharArray();
-        Debug.Log($"strings.Length : {texts.Length} : {texts[0]}");
+        //Debug.Log($"strings.Length : {texts.Length} : {texts[0]}");
         string sentence = "";
         for(int i =0; i < texts.Length; i++)
         {
             sentence += texts[i];
             _sentenceText.SetText(sentence);
             yield return new WaitForSeconds(0.05f);
+        }
+
+        if (choiceData != "0")
+        {
+            _isChoise = true;
+            yield return new WaitForSeconds(0.8f);
+            OnChoice(choiceData);
         }
 
         _isTextLine = false;

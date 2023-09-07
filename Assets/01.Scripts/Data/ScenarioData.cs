@@ -9,7 +9,7 @@ public class ScenarioData
     public int id;
     public string name;
     public string text;
-    public int spriteNum;
+    public string spriteNum;
     public int backgroundNum;
     public int navigationNum;
     public int easeNum;

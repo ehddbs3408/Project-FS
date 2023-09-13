@@ -9,9 +9,10 @@ public class ScenarioData
     public int id;
     public string name;
     public string text;
-    public string spriteNum;
+    public string sprite;
     public int backgroundNum;
-    public int navigationNum;
+    public string soundStr;
+    public string navigation;
     public int easeNum;
     public int interfaceNum;
     public string choice;

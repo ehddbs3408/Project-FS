@@ -10,8 +10,6 @@ public class UIManager : MonoBehaviour
 
     public TextAsset document;
 
-    public List<Sprite> sprites = new List<Sprite>();
-
     public UIDialogue UIDialogue_ = new UIDialogue();
 
     private void Awake()

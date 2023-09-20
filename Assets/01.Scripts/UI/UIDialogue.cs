@@ -20,6 +20,7 @@ public class UIDialogue : UIBase
     private GameObject _choiceBoxTemp;
 
     private Image _backGroundImage;
+    private Image _fade;
     private GameObject _charTemp;
     private Dictionary<int,Image> _sprites = new Dictionary<int,Image>();
 
@@ -46,6 +47,7 @@ public class UIDialogue : UIBase
         _content = _scroll.transform.Find("Viewport/Content");
 
         _backGroundImage = _parent.transform.Find("BackGround").GetComponent<UnityEngine.UI.Image>();
+        _fade = _parent.transform.Find("Fade").GetComponent<UnityEngine.UI.Image>();
 
         _nameText = _dialogue.transform.Find("Name/NameText").GetComponent<TextMeshProUGUI>();
         _sentenceText = _dialogue.transform.Find("Text/Sentence").GetComponent<TextMeshProUGUI>();
@@ -75,7 +77,7 @@ public class UIDialogue : UIBase
             newData.backgroundNum = int.Parse(scenarioInfo[4] == "" ? "0" : scenarioInfo[4]);
             newData.soundStr = scenarioInfo[5];
             newData.navigation = scenarioInfo[6];
-            newData.easeNum = int.Parse(scenarioInfo[7] == "" ? "0" : scenarioInfo[7]);
+            newData.effectNum = int.Parse(scenarioInfo[7] == "" ? "0" : scenarioInfo[7]);
             newData.interfaceNum = int.Parse(scenarioInfo[8] == "" ? "0" : scenarioInfo[8]);
             newData.choice = scenarioInfo[9];
             newData.next = int.Parse(scenarioInfo[10] == "" ? "0" : scenarioInfo[10]);
@@ -170,6 +172,14 @@ public class UIDialogue : UIBase
             go.transform.SetParent(_content);
             go.SetActive(true);
         }
+    }
+    public void FadeIn(float duration)
+    {
+        _fade.DOColor(new Color(0, 0, 0, 1), duration);
+    }
+    public void FadeOut(float duration)
+    {
+        _fade.DOColor(new Color(0, 0, 0, 0), duration);
     }
     public void DeletChoiceBox()
     {

@@ -6,10 +6,12 @@ public class Agent : MonoBehaviour
 {
     [SerializeField]
     private int _maxHP = 3;
+    public int MaxHP => _maxHP;
 
     private int _currentHP = 0;
+    public int CurrentHP => _currentHP;
 
-    private void Start()
+    private void Awake()
     {
         _currentHP = _maxHP;
     }

@@ -1,3 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    <ui:VisualElement name="heart" style="background-image: url(&apos;project://database/Assets/02.Sprites/40+%20Simple%20Icons%20-%20Free/Heart_Simple_Icons_UI.png?fileID=21300000&amp;guid=61fb9ecce04358246901dadbdfbd2230&amp;type=3#Heart_Simple_Icons_UI&apos;); width: auto; height: auto; flex-basis: 100px; -unity-background-scale-mode: scale-to-fit; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
-</ui:UXML>

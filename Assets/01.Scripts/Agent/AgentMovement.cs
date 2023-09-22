@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class AgentMovement : MonoBehaviour
 {
-    private float _h = 0;
-    private float _v = 0;
-
     [SerializeField]
     private float _moveSpeed = 10;
 

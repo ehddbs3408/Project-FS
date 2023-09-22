@@ -27,9 +27,8 @@ public class Laser : Arrow
         Debug.Log("레이저 발사");
         LaserBullet laserBullet = GameManager.Instance.ResourceManager_.Instantiate("LaserBullet").GetComponent<LaserBullet>();
         // 레이저의 길이를 정해주기
-        laserBullet.transform.position = this.transform.position; // 애러남 아마도 laserBullet이 Null
+        laserBullet.transform.position = this.transform.position;
         laserBullet.transform.rotation = this.transform.rotation;
-        laserBullet.DestroyAction -= () => GameManager.Instance.ResourceManager_.Destroy(this.gameObject);
-        laserBullet.DestroyAction += () => GameManager.Instance.ResourceManager_.Destroy(this.gameObject);
+        laserBullet.SetParentLaser(this);
     }
 }

@@ -10,6 +10,7 @@ public class ProjectileState<T> : AIState where T : Bullet
         Random,
         Circle,
         Grid,
+        Rain,
     }
 
     [SerializeField]
@@ -40,6 +41,10 @@ public class ProjectileState<T> : AIState where T : Bullet
     private float _gridSpawnDelay = 0.2f;
     private bool _isGridCheck = false;
 
+    [Header("Rain Spawn Parameter")]
+    [SerializeField]
+    private float _rainSpawnDelay = 0.2f;
+
     private void Start()
     {
         _spawnArea = _fieldSr.size / 2 + Vector2.one;
@@ -64,6 +69,9 @@ public class ProjectileState<T> : AIState where T : Bullet
             case PatternType.Grid:
                 _timer = _gridSpawnDelay;
                 break;
+            case PatternType.Rain:
+                _timer = _rainSpawnDelay;
+                break;
         }
     }
 
@@ -86,6 +94,9 @@ public class ProjectileState<T> : AIState where T : Bullet
                 break;
             case PatternType.Grid:
                 GridSpawn();
+                break;
+            case PatternType.Rain:
+                RainSpawn();
                 break;
         }
     }
@@ -168,6 +179,16 @@ public class ProjectileState<T> : AIState where T : Bullet
 
             _isGridCheck = !_isGridCheck;
             _timer = 0f;
+        }
+    }
+
+    public virtual void RainSpawn() // 한곳 만 빼고 생성
+    {
+        if(_timer >= _rainSpawnDelay)
+        {
+            // 랜덤으로 위 아래 정하기
+            // 스폰할 곳을 모두 뽑아 배열에 넣고 랜덤으로 한 곳 뽑음
+            // 뽑은 곳 먼저 발사 후 좀 뒤에 나머지 다 발사
         }
     }
 

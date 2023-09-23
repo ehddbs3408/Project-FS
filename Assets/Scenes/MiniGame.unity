@@ -184,7 +184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &507551227
 Transform:
   m_ObjectHideFlags: 0
@@ -410,8 +410,8 @@ MonoBehaviour:
   _transitionList: []
   _fieldSr: {fileID: 845175792}
   _isRandomPattern: 0
-  _patternType: 2
-  _randomSpawnDelay: 3
+  _patternType: 0
+  _randomSpawnDelay: 0.5
   _isLeftSpawnDireaction: 1
   _circleSpawnDelay: 0.2
   _gridSpawnDelay: 0.2
@@ -462,7 +462,7 @@ MonoBehaviour:
   _transitionList: []
   _fieldSr: {fileID: 845175792}
   _isRandomPattern: 0
-  _patternType: 2
+  _patternType: 1
   _randomSpawnDelay: 3
   _isLeftSpawnDireaction: 1
   _circleSpawnDelay: 0.2
@@ -650,6 +650,7 @@ Transform:
   - {fileID: 507551227}
   - {fileID: 934616739}
   - {fileID: 967841635}
+  - {fileID: 2119142200}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -677,5 +678,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97bdf296a1fa1f43a1128a3c887603c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentState: {fileID: 967841636}
+  _currentState: {fileID: 934616740}
   GlobalTransition: []
+--- !u!1 &2119142199
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2119142200}
+  - component: {fileID: 2119142201}
+  m_Layer: 0
+  m_Name: LaserState (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2119142200
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119142199}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1780047081}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2119142201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119142199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca9eccccf4dbe074f8a5736497039941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transitionList: []
+  _fieldSr: {fileID: 845175792}
+  _isRandomPattern: 0
+  _patternType: 2
+  _randomSpawnDelay: 3
+  _isLeftSpawnDireaction: 1
+  _circleSpawnDelay: 0.2
+  _gridSpawnDelay: 1.5

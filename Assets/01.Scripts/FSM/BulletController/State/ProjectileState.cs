@@ -23,7 +23,7 @@ public class ProjectileState<T> : AIState where T : Bullet
     [SerializeField]
     private PatternType _patternType;
 
-    protected float timer = 0f;
+    protected float _timer = 0f;
 
     [Header("Random Spawn Parameter")]
     [SerializeField]
@@ -47,13 +47,14 @@ public class ProjectileState<T> : AIState where T : Bullet
             _patternType = (PatternType)Random.Range(0, (int)PatternType.Grid + 1);
         }
 
-        _spawnPos = Vector2.zero;
+        _spawnPos = new Vector2(0, _spawnArea.y);
         switch (_patternType)
         {
             case PatternType.Random:
-                timer = _randomSpawnDelay;
+                _timer = _randomSpawnDelay;
                 break;
             case PatternType.Circle:
+                _timer = _circleSpawnDelay;
                 break;
             case PatternType.Grid:
                 break;
@@ -67,7 +68,7 @@ public class ProjectileState<T> : AIState where T : Bullet
 
     public override void TakeAAction()
     {
-        timer += Time.deltaTime;
+        _timer += Time.deltaTime;
 
         switch (_patternType)
         {
@@ -90,12 +91,12 @@ public class ProjectileState<T> : AIState where T : Bullet
 
         bullet.Init(direction); // 나중에 풀레이어 위치로 바꾸기
         BulletManager.Instance.AddBullet(bullet);
-        timer = 0f;
+        _timer = 0f;
     }
 
     public virtual void RandomSpawn()
     {
-        if (timer >= _randomSpawnDelay)
+        if (_timer >= _randomSpawnDelay)
         {
             SpawnProjectile(GetRandomSpawnPos(), Vector2.zero);
         }
@@ -103,33 +104,36 @@ public class ProjectileState<T> : AIState where T : Bullet
 
     public virtual void CircleSpawn() // 필드 테구리 따라 소환
     {
-        if(timer >= 0.2f)
+        if(_timer >= _circleSpawnDelay)
         {
-            if(_spawnPos == Vector2.zero) // 시작
-            {
-                _spawnPos = new Vector2(0, _spawnArea.y);
-            }
-
             SpawnProjectile(_spawnPos, Vector2.zero);
 
             // _spawnPos = new Vector2(_spawnArea.x, _spawnArea.y)
             if((_spawnPos.y == _spawnArea.y && Mathf.Abs(_spawnPos.x) < _spawnArea.x)
-                || _spawnPos == new Vector2(_spawnArea.x, _spawnArea.y)) // 위쪽 || 오른쪽 위
+                || (_isLeftSpawnDireaction
+                ? _spawnPos == new Vector2(_spawnArea.x, _spawnArea.y)
+                : _spawnPos == new Vector2(-_spawnArea.x, _spawnArea.y))) // 위쪽 || 오른쪽 위
             {
                 _spawnPos.x += _isLeftSpawnDireaction ? -1f : 1f;
             }
             else if((_spawnPos.y == -_spawnArea.y && Mathf.Abs(_spawnPos.x) < _spawnArea.x)
-                || _spawnPos == new Vector2(-_spawnArea.x, -_spawnArea.y)) // 아래쪽 || 왼쪽 아래
+                || (_isLeftSpawnDireaction
+                ? _spawnPos == new Vector2(-_spawnArea.x, -_spawnArea.y)
+                : _spawnPos == new Vector2(_spawnArea.x, -_spawnArea.y))) // 아래쪽 || 왼쪽 아래
             {
                 _spawnPos.x += _isLeftSpawnDireaction ? 1f : -1f;
             }
             else if((_spawnPos.x == _spawnArea.x && Mathf.Abs(_spawnPos.y) < _spawnArea.y)
-                || _spawnPos == new Vector2(_spawnArea.x, -_spawnArea.y)) // 오른쪽 || 오른쪽 아래
+                || (_isLeftSpawnDireaction
+                ? _spawnPos == new Vector2(_spawnArea.x, -_spawnArea.y)
+                : _spawnPos == new Vector2(_spawnArea.x, _spawnArea.y))) // 오른쪽 || 오른쪽 아래
             {
                 _spawnPos.y += _isLeftSpawnDireaction ? 1f : -1f;
             }
             else if((_spawnPos.x == -_spawnArea.x && Mathf.Abs(_spawnPos.y) < _spawnArea.y)
-                || _spawnPos == new Vector2(-_spawnArea.x, _spawnArea.y)) // 왼쪽 || 왼쪽 위
+                || (_isLeftSpawnDireaction
+                ? _spawnPos == new Vector2(-_spawnArea.x, _spawnArea.y)
+                : _spawnPos == new Vector2(-_spawnArea.x, -_spawnArea.y))) // 왼쪽 || 왼쪽 위
             {
                 _spawnPos.y += _isLeftSpawnDireaction ? -1f : 1f;
             }

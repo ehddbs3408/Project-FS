@@ -75,12 +75,15 @@ public class Bullet : MonoBehaviour
             _attackCorutine = null;
         }
 
+        _moveable = false;
+        transform.GetChild(0).transform.rotation = Quaternion.Euler(Vector3.zero);
         BulletManager.Instance.RemoveBullet(this);
         GameManager.Instance.ResourceManager_.Destroy(this.gameObject);
     }
 
     private void OnDestroy()
     {
+        transform.GetChild(0).transform.rotation = Quaternion.Euler(Vector3.zero);
         BulletManager.Instance.RemoveBullet(this);
         if (_attackCorutine != null)
         {

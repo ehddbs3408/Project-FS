@@ -35,6 +35,11 @@ public class ProjectileState<T> : AIState where T : Bullet
     [SerializeField]
     private float _circleSpawnDelay = 0.2f;
 
+    [Header("Grid Spawn Parameter")]
+    [SerializeField]
+    private float _gridSpawnDelay = 0.2f;
+    private bool _isGridCheck = false;
+
     private void Start()
     {
         _spawnArea = _fieldSr.size / 2 + Vector2.one;
@@ -57,6 +62,7 @@ public class ProjectileState<T> : AIState where T : Bullet
                 _timer = _circleSpawnDelay;
                 break;
             case PatternType.Grid:
+                _timer = _gridSpawnDelay;
                 break;
         }
     }
@@ -79,6 +85,7 @@ public class ProjectileState<T> : AIState where T : Bullet
                 CircleSpawn();
                 break;
             case PatternType.Grid:
+                GridSpawn();
                 break;
         }
     }
@@ -91,7 +98,6 @@ public class ProjectileState<T> : AIState where T : Bullet
 
         bullet.Init(direction); // 나중에 풀레이어 위치로 바꾸기
         BulletManager.Instance.AddBullet(bullet);
-        _timer = 0f;
     }
 
     public virtual void RandomSpawn()
@@ -99,6 +105,7 @@ public class ProjectileState<T> : AIState where T : Bullet
         if (_timer >= _randomSpawnDelay)
         {
             SpawnProjectile(GetRandomSpawnPos(), Vector2.zero);
+            _timer = 0f;
         }
     }
 
@@ -107,9 +114,10 @@ public class ProjectileState<T> : AIState where T : Bullet
         if(_timer >= _circleSpawnDelay)
         {
             SpawnProjectile(_spawnPos, Vector2.zero);
+            _timer = 0f;
 
             // _spawnPos = new Vector2(_spawnArea.x, _spawnArea.y)
-            if((_spawnPos.y == _spawnArea.y && Mathf.Abs(_spawnPos.x) < _spawnArea.x)
+            if ((_spawnPos.y == _spawnArea.y && Mathf.Abs(_spawnPos.x) < _spawnArea.x)
                 || (_isLeftSpawnDireaction
                 ? _spawnPos == new Vector2(_spawnArea.x, _spawnArea.y)
                 : _spawnPos == new Vector2(-_spawnArea.x, _spawnArea.y))) // 위쪽 || 오른쪽 위
@@ -142,7 +150,25 @@ public class ProjectileState<T> : AIState where T : Bullet
 
     public virtual void GridSpawn() // 격자로 생성
     {
+        if(_timer >= _gridSpawnDelay)
+        {
+            float y = -_spawnArea.y + (_isGridCheck ? 2 : 1);
+            while(y < _spawnArea.y)
+            {
+                SpawnProjectile(new Vector2(-_spawnArea.x, y), new Vector2(_spawnArea.x, y));
+                y += 2;
+            }
 
+            float x = -_spawnArea.x + (_isGridCheck ? 1 : 2);
+            while (x < _spawnArea.x)
+            {
+                SpawnProjectile(new Vector2(x, _spawnArea.y), new Vector2(x, -_spawnArea.y));
+                x += 2;
+            }
+
+            _isGridCheck = !_isGridCheck;
+            _timer = 0f;
+        }
     }
 
     public Vector2 GetRandomSpawnPos()

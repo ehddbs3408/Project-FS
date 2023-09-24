@@ -36,8 +36,10 @@ public class UIDialogue : UIBase
     private bool _isChoise = false;
     private bool _isOnChoicePanel = false;
 
+    private Color _backSpriteColor = new Color(0.6f, 0.6f, 0.6f);
 
-    private int _currentScenarioLine = 30;
+
+    private int _currentScenarioLine = 35;
     public override void Init()
     {
         _parent = GameObject.Find("UIDialogue");
@@ -147,16 +149,34 @@ public class UIDialogue : UIBase
             case "3":
                 DeletSprite(sprite, interfaceNum);
                 break;
+            case "4":
+                UIManager.Instance.StartCoroutine(WaitDialogue(float.Parse(strs[1])));
+                break;
         }
+    }
+    public IEnumerator WaitDialogue(float duration)
+    {
+        _isStopDialogue = true;
+        yield return new WaitForSeconds(duration);
+        _isStopDialogue = false;
     }
     public void SetSprite(string sprite,int interfaceNum)
     {
-        if(_sprites.ContainsKey(interfaceNum) == false)
+        //BackSpriteColor();
+        if (_sprites.ContainsKey(interfaceNum) == false)
         {
             GameObject go = GameObject.Instantiate(_charTemp, _face);
             _sprites.Add(interfaceNum, go.transform.GetComponent<Image>());
         }
         _sprites[interfaceNum].sprite = GameManager.Instance.ResourceManager_.Load<Sprite>($"Image/Char/{sprite}");
+        //_sprites[interfaceNum].color = Color.white;
+    }
+    public void BackSpriteColor()
+    {
+        foreach(Image image in _sprites.Values)
+        {
+            image.color = _backSpriteColor;
+        }
     }
     public void DeletSprite(string sprite,int interfaceNum)
     {

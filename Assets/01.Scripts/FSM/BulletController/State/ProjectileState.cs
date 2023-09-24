@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using UnityEditor;
 using UnityEngine;
 
 public class ProjectileState<T> : AIState where T : Bullet
@@ -43,7 +44,11 @@ public class ProjectileState<T> : AIState where T : Bullet
 
     [Header("Rain Spawn Parameter")]
     [SerializeField]
-    private float _rainSpawnDelay = 0.2f;
+    private float _oneSpawnDelay = 1.5f;
+    [SerializeField]
+    private float _remainSpawnDelay = 0.5f;
+    private List<Vector2> _spawnList = new List<Vector2>();
+    private bool _isUp = false;
 
     private void Start()
     {
@@ -70,7 +75,7 @@ public class ProjectileState<T> : AIState where T : Bullet
                 _timer = _gridSpawnDelay;
                 break;
             case PatternType.Rain:
-                _timer = _rainSpawnDelay;
+                _timer = _oneSpawnDelay;
                 break;
         }
     }
@@ -166,14 +171,16 @@ public class ProjectileState<T> : AIState where T : Bullet
             float y = -_spawnArea.y + (_isGridCheck ? 2 : 1);
             while(y < _spawnArea.y)
             {
-                SpawnProjectile(new Vector2(-_spawnArea.x, y), new Vector2(_spawnArea.x, y));
+                Vector2 spawnPos = new Vector2(-_spawnArea.x, y);
+                SpawnProjectile(spawnPos, GetOppositeVector(spawnPos, false));
                 y += 2;
             }
 
             float x = -_spawnArea.x + (_isGridCheck ? 1 : 2);
             while (x < _spawnArea.x)
             {
-                SpawnProjectile(new Vector2(x, _spawnArea.y), new Vector2(x, -_spawnArea.y));
+                Vector2 spawnPos = new Vector2(x, _spawnArea.y);
+                SpawnProjectile(spawnPos, GetOppositeVector(spawnPos, true));
                 x += 2;
             }
 
@@ -184,12 +191,51 @@ public class ProjectileState<T> : AIState where T : Bullet
 
     public virtual void RainSpawn() // 한곳 만 빼고 생성
     {
-        if(_timer >= _rainSpawnDelay)
+        if(_timer >= (_spawnList.Count <= 0 ? _oneSpawnDelay : _remainSpawnDelay))
         {
-            // 랜덤으로 위 아래 정하기
-            // 스폰할 곳을 모두 뽑아 배열에 넣고 랜덤으로 한 곳 뽑음
-            // 뽑은 곳 먼저 발사 후 좀 뒤에 나머지 다 발사
+            if(_spawnList.Count <= 0)
+            {
+                _isUp = Random.value > 0.5f ? true : false;
+                // 다시 채우고
+                _spawnPos = _isUp ? new Vector2(-_spawnArea.x + 2, _spawnArea.y) : new Vector2(-_spawnArea.x, -_spawnArea.y + 2);
+                _spawnList.Add(_spawnPos);
+                while(_isUp ? _spawnPos.x < _spawnArea.x - 2 : _spawnPos.y < _spawnArea.y - 2)
+                {
+                    if (_isUp)
+                    {
+                        _spawnPos.x += 1f;
+                    }
+                    else
+                    {
+                        _spawnPos.y += 1f;
+                    }
+                    _spawnList.Add(_spawnPos);
+                }
+                int randomIndex = Random.Range(0, _spawnList.Count);
+                _spawnPos = _spawnList[randomIndex];
+                _spawnList.RemoveAt(randomIndex);
+                SpawnProjectile(_spawnPos, GetOppositeVector(_spawnPos, _isUp));
+            }
+            else
+            {
+                for(int i = 0; i < _spawnList.Count; i++)
+                {
+                    SpawnProjectile(_spawnList[i], GetOppositeVector(_spawnList[i], _isUp));
+                }
+                _spawnList.Clear();
+            }
+            _timer = 0f;
         }
+    }
+
+    public Vector2 GetOppositeVector(Vector2 vector, bool isUp)
+    {
+        if (isUp)
+        {
+            return new Vector2(vector.x, -vector.y);
+        }
+
+        return new Vector2(-vector.x, vector.y);
     }
 
     public Vector2 GetRandomSpawnPos()

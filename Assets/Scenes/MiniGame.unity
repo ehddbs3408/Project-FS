@@ -220,6 +220,8 @@ MonoBehaviour:
   _isLeftSpawnDireaction: 1
   _circleSpawnDelay: 0.2
   _gridSpawnDelay: 0.2
+  _oneSpawnDelay: 0.2
+  _remainSpawnDelay: 0.5
 --- !u!114 &507551229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,6 +417,8 @@ MonoBehaviour:
   _isLeftSpawnDireaction: 1
   _circleSpawnDelay: 0.2
   _gridSpawnDelay: 0.2
+  _oneSpawnDelay: 0.2
+  _remainSpawnDelay: 0.5
 --- !u!1 &967841634
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,11 +466,13 @@ MonoBehaviour:
   _transitionList: []
   _fieldSr: {fileID: 845175792}
   _isRandomPattern: 0
-  _patternType: 1
+  _patternType: 3
   _randomSpawnDelay: 3
   _isLeftSpawnDireaction: 1
   _circleSpawnDelay: 0.2
   _gridSpawnDelay: 1.5
+  _oneSpawnDelay: 1.5
+  _remainSpawnDelay: 1
 --- !u!1 &1020946883
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,7 +684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97bdf296a1fa1f43a1128a3c887603c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentState: {fileID: 934616740}
+  _currentState: {fileID: 967841636}
   GlobalTransition: []
 --- !u!1 &2119142199
 GameObject:
@@ -732,3 +738,5 @@ MonoBehaviour:
   _isLeftSpawnDireaction: 1
   _circleSpawnDelay: 0.2
   _gridSpawnDelay: 1.5
+  _oneSpawnDelay: 0.2
+  _remainSpawnDelay: 0.5

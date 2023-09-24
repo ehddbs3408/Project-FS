@@ -25,7 +25,6 @@ public class Agent : MonoBehaviour
     public void Hit()
     {
         _currentHP--;
-        Debug.Log("Hit");
         OnHitEvent?.Invoke();
 
 
@@ -41,8 +40,5 @@ public class Agent : MonoBehaviour
 
         DOTween.KillAll();
         Time.timeScale = 0f;
-        // UI ¶ç¿ì±â
-
-        Debug.Log("Game Over");
     }
 }

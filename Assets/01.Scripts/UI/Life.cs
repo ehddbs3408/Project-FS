@@ -14,8 +14,6 @@ public class Life : MonoBehaviour
     private void Start()
     {
         _image = GetComponent<Image>();
-        Debug.Log(Convert.ToInt32(true));
-        Debug.Log(Convert.ToInt32(false));
     }
 
     public void UpdateHeart(bool isHave)

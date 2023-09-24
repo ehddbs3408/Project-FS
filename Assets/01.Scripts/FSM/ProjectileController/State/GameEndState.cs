@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameEndState : AIState
 {
+    public UnityEvent OnGameEndEvent = null;
+
     public override void OnStateEnter()
     {
-        Debug.Log("Game End");
+        OnGameEndEvent?.Invoke();
     }
 
     public override void OnStateLeave()

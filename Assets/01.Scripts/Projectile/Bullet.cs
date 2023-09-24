@@ -78,14 +78,14 @@ public class Bullet : MonoBehaviour
         _moveable = false;
         transform.rotation = Quaternion.Euler(Vector3.zero);
         transform.GetChild(0).transform.rotation = Quaternion.Euler(Vector3.zero);
-        BulletManager.Instance.RemoveBullet(this);
+        ProjectileManager.Instance.RemoveBullet(this);
         GameManager.Instance.ResourceManager_.Destroy(this.gameObject);
     }
 
     private void OnDestroy()
     {
         transform.GetChild(0).transform.rotation = Quaternion.Euler(Vector3.zero);
-        BulletManager.Instance.RemoveBullet(this);
+        ProjectileManager.Instance.RemoveBullet(this);
         if (_attackCorutine != null)
         {
             StopCoroutine(_attackCorutine);

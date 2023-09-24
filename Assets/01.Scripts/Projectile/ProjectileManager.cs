@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
-public class BulletManager : MonoBehaviour
+public class ProjectileManager : MonoBehaviour
 {
-    public static BulletManager Instance;
+    public static ProjectileManager Instance;
 
     private List<Bullet> _bulletList = new List<Bullet>();
+
+    [SerializeField]
+    private Agent _agent;
 
     private void Awake()
     {
@@ -15,6 +18,11 @@ public class BulletManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    public Agent GetAgent()
+    {
+        return _agent;
     }
 
     public void AddBullet(Bullet bullet)

@@ -113,14 +113,14 @@ public class ProjectileState<T> : AIState where T : Bullet
         bullet.transform.position = _spawnPos;
 
         bullet.Init(direction); // 나중에 풀레이어 위치로 바꾸기
-        BulletManager.Instance.AddBullet(bullet);
+        ProjectileManager.Instance.AddBullet(bullet);
     }
 
     public virtual void RandomSpawn()
     {
         if (_timer >= _randomSpawnDelay)
         {
-            SpawnProjectile(GetRandomSpawnPos(), Vector2.zero);
+            SpawnProjectile(GetRandomSpawnPos(), ProjectileManager.Instance.GetAgent().transform.position);
             _timer = 0f;
         }
     }

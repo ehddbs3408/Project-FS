@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
 
     public UIDialogue UIDialogue_ = new UIDialogue();
 
+
     private void Awake()
     {
         if(Instance != null)

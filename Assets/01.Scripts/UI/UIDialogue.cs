@@ -20,6 +20,7 @@ public class UIDialogue : UIBase
     private GameObject _choiceBoxTemp;
 
     private Image _backGroundImage;
+    private Image _fade;
     private GameObject _charTemp;
     private Dictionary<int,Image> _sprites = new Dictionary<int,Image>();
 
@@ -30,12 +31,13 @@ public class UIDialogue : UIBase
     private Coroutine _coroutine;
     private string _curSentence = "";
     private string _curChoiceData = "";
+    private bool _isStopDialogue = false;
     private bool _isTextLine = false;
     private bool _isChoise = false;
     private bool _isOnChoicePanel = false;
 
 
-    private int _currentScenarioLine = 1;
+    private int _currentScenarioLine = 30;
     public override void Init()
     {
         _parent = GameObject.Find("UIDialogue");
@@ -46,6 +48,7 @@ public class UIDialogue : UIBase
         _content = _scroll.transform.Find("Viewport/Content");
 
         _backGroundImage = _parent.transform.Find("BackGround").GetComponent<UnityEngine.UI.Image>();
+        _fade = _parent.transform.Find("Fade").GetComponent<UnityEngine.UI.Image>();
 
         _nameText = _dialogue.transform.Find("Name/NameText").GetComponent<TextMeshProUGUI>();
         _sentenceText = _dialogue.transform.Find("Text/Sentence").GetComponent<TextMeshProUGUI>();
@@ -75,7 +78,7 @@ public class UIDialogue : UIBase
             newData.backgroundNum = int.Parse(scenarioInfo[4] == "" ? "0" : scenarioInfo[4]);
             newData.soundStr = scenarioInfo[5];
             newData.navigation = scenarioInfo[6];
-            newData.easeNum = int.Parse(scenarioInfo[7] == "" ? "0" : scenarioInfo[7]);
+            newData.effectNum = scenarioInfo[7];
             newData.interfaceNum = int.Parse(scenarioInfo[8] == "" ? "0" : scenarioInfo[8]);
             newData.choice = scenarioInfo[9];
             newData.next = int.Parse(scenarioInfo[10] == "" ? "0" : scenarioInfo[10]);
@@ -88,6 +91,7 @@ public class UIDialogue : UIBase
     }
     public void NextStory()
     {
+        if (_isStopDialogue) return;
         if(_isTextLine)
         {
             _sentenceText.SetText(_curSentence);
@@ -114,6 +118,7 @@ public class UIDialogue : UIBase
         SetSprite(data.sprite, data.interfaceNum);
         Navigation(data.navigation, data.interfaceNum);
 
+        SetEffect(data.effectNum,data.sprite,data.interfaceNum);
         if (data.next != 0)
         {
             _currentScenarioLine = data.next;
@@ -126,6 +131,24 @@ public class UIDialogue : UIBase
         _currentScenarioLine++;
 
     }
+    public void SetEffect(string effectName,string sprite,int interfaceNum)
+    {
+        string[] strs = effectName.Split(':');
+        switch (strs[0])
+        {
+            case "0":
+                break;
+            case "1":
+                FadeIn(float.Parse(strs[1]));
+                break;
+            case "2":
+                FadeOut(float.Parse(strs[1]));
+                break;
+            case "3":
+                DeletSprite(sprite, interfaceNum);
+                break;
+        }
+    }
     public void SetSprite(string sprite,int interfaceNum)
     {
         if(_sprites.ContainsKey(interfaceNum) == false)
@@ -134,6 +157,14 @@ public class UIDialogue : UIBase
             _sprites.Add(interfaceNum, go.transform.GetComponent<Image>());
         }
         _sprites[interfaceNum].sprite = GameManager.Instance.ResourceManager_.Load<Sprite>($"Image/Char/{sprite}");
+    }
+    public void DeletSprite(string sprite,int interfaceNum)
+    {
+        if (_sprites.ContainsKey(interfaceNum) == false) return;
+
+        GameObject go = _sprites[interfaceNum].transform.gameObject;
+        _sprites.Remove(interfaceNum);
+        GameObject.Destroy(go);
     }
     public void Navigation(string navigation, int interfaceNum)
     {
@@ -170,6 +201,28 @@ public class UIDialogue : UIBase
             go.transform.SetParent(_content);
             go.SetActive(true);
         }
+    }
+    public void FadeIn(float duration)
+    {
+        _isStopDialogue = true;
+        Sequence seq = DOTween.Sequence();
+        seq.Append(_fade.DOColor(new Color(0, 0, 0, 1), duration));
+        seq.AppendCallback(() =>
+        {
+            _isStopDialogue = false;
+            NextStory();
+        });
+    }
+    public void FadeOut(float duration)
+    {
+        _isStopDialogue = true;
+        Sequence seq = DOTween.Sequence();
+        seq.Append(_fade.DOColor(new Color(0, 0, 0, 0), duration));
+        seq.AppendCallback(() =>
+        {
+            _isStopDialogue = false;
+            NextStory();
+        });
     }
     public void DeletChoiceBox()
     {

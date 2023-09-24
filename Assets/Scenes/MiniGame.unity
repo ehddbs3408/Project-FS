@@ -236,6 +236,51 @@ MonoBehaviour:
   m_AmplitudeGain: 0
   m_FrequencyGain: 1
   mNoiseOffsets: {x: 925.29346, y: -509.69287, z: 500.15997}
+--- !u!1 &343594890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 343594891}
+  - component: {fileID: 343594892}
+  m_Layer: 0
+  m_Name: GameEndState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &343594891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343594890}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1780047081}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &343594892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343594890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc9526e631138db4bb380bfcccc2f8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transitionList: []
 --- !u!1 &395071445
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +353,7 @@ GameObject:
   - component: {fileID: 507551228}
   - component: {fileID: 507551229}
   m_Layer: 0
-  m_Name: BulletState
+  m_Name: BulletState - Random
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -327,7 +372,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1780047081}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &507551228
 MonoBehaviour:
@@ -687,7 +732,7 @@ GameObject:
   - component: {fileID: 934616740}
   - component: {fileID: 934616741}
   m_Layer: 0
-  m_Name: ArrawState
+  m_Name: ArrawState - Random
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -706,7 +751,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1780047081}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &934616740
 MonoBehaviour:
@@ -760,7 +805,7 @@ GameObject:
   - component: {fileID: 967841636}
   - component: {fileID: 967841637}
   m_Layer: 0
-  m_Name: LaserState
+  m_Name: LaserState - Random
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -779,7 +824,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1780047081}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &967841636
 MonoBehaviour:
@@ -1000,13 +1045,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1351033649}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -960, y: -540, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 2033238282}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1534406264
 GameObject:
@@ -1020,7 +1065,7 @@ GameObject:
   - component: {fileID: 1534406267}
   - component: {fileID: 1534406266}
   m_Layer: 0
-  m_Name: LaserState (2)
+  m_Name: LaserState - Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1039,7 +1084,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1780047081}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1534406266
 MonoBehaviour:
@@ -1345,7 +1390,7 @@ GameObject:
   - component: {fileID: 1709606294}
   - component: {fileID: 1709606293}
   m_Layer: 0
-  m_Name: LaserState (1)
+  m_Name: LaserState - Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1364,7 +1409,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1780047081}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1709606293
 MonoBehaviour:
@@ -1418,7 +1463,7 @@ GameObject:
   - component: {fileID: 1740882484}
   - component: {fileID: 1740882483}
   m_Layer: 0
-  m_Name: LaserState (3)
+  m_Name: LaserState - Rain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1468,7 +1513,7 @@ MonoBehaviour:
   - conditionAndNotList:
     - condition: {fileID: 1740882483}
       not: 0
-    nextState: {fileID: 813791432}
+    nextState: {fileID: 343594892}
     priority: 0
   _fieldSr: {fileID: 845175792}
   _isRandomPattern: 0
@@ -1510,12 +1555,13 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 813791431}
-  - {fileID: 507551227}
-  - {fileID: 934616739}
   - {fileID: 967841635}
   - {fileID: 1709606292}
+  - {fileID: 507551227}
   - {fileID: 1534406265}
+  - {fileID: 934616739}
   - {fileID: 1740882482}
+  - {fileID: 343594891}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1640,6 +1686,7 @@ RectTransform:
   m_Children:
   - {fileID: 519057518}
   - {fileID: 709229532}
+  - {fileID: 1351033652}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

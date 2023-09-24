@@ -22,9 +22,8 @@ public class DelayState : AIState
     {
         if(_aiBrain.StateDuractionTime >= _delayTime)
         {
-            int randomIndex = Random.Range(0, _stateList.Count - 1);
-            AIState state = _stateList[randomIndex];
-            _stateList.RemoveAt(randomIndex);
+            AIState state = _stateList[0];
+            _stateList.RemoveAt(0);
             _aiBrain.ChangeState(state);
         }
     }

@@ -33,4 +33,16 @@ public class UIManager : MonoBehaviour
         UIDialogue_.NextStory();
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyUp(KeyCode.A))
+        {
+            UIDialogue_.FadeIn(1);
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            UIDialogue_.FadeOut(1);
+        }
+    }
+
 }

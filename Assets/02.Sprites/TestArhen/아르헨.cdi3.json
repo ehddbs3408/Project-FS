@@ -1,0 +1,64 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param3",
+			"GroupId": "ParamGroup",
+			"Name": "X 눈 움직임"
+		},
+		{
+			"Id": "Param4",
+			"GroupId": "ParamGroup",
+			"Name": "Y 움직임"
+		},
+		{
+			"Id": "Param",
+			"GroupId": "ParamGroup",
+			"Name": "오른쪽 눈 깜빡임"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "ParamGroup",
+			"Name": "왼쪽 눈 깜빡임"
+		}
+	],
+	"ParameterGroups": [
+		{
+			"Id": "ParamGroup",
+			"GroupId": "",
+			"Name": "EyeMove"
+		}
+	],
+	"Parts": [
+		{
+			"Id": "head",
+			"Name": "head"
+		},
+		{
+			"Id": "face",
+			"Name": "face"
+		},
+		{
+			"Id": "mouse",
+			"Name": "mouse"
+		},
+		{
+			"Id": "eye",
+			"Name": "eye"
+		},
+		{
+			"Id": "left",
+			"Name": "left"
+		},
+		{
+			"Id": "right",
+			"Name": "right"
+		}
+	],
+	"CombinedParameters": [
+		[
+			"Param3",
+			"Param4"
+		]
+	]
+}

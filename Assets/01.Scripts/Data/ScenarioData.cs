@@ -13,7 +13,7 @@ public class ScenarioData
     public int backgroundNum;
     public string soundStr;
     public string navigation;
-    public int easeNum;
+    public string effectNum;
     public int interfaceNum;
     public string choice;
     public int next;

@@ -39,7 +39,7 @@ public class UIDialogue : UIBase
     private Color _backSpriteColor = new Color(0.6f, 0.6f, 0.6f);
 
 
-    private int _currentScenarioLine = 35;
+    private int _currentScenarioLine = 39;
     public override void Init()
     {
         _parent = GameObject.Find("UIDialogue");
@@ -63,6 +63,7 @@ public class UIDialogue : UIBase
 
     public void StartScenario(TextAsset scenario)
     {
+
         _currentScenarioTextAsset = scenario;
 
         string[] line = scenario.text.Split('\n');

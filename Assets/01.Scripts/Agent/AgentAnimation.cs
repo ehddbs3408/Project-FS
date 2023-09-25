@@ -4,10 +4,22 @@ using UnityEngine;
 
 public class AgentAnimation : MonoBehaviour
 {
-    private Animator _animator;
+    protected Animator _animator;
+    public Animator Animator
+    {
+        get
+        {
+            if(_animator == null)
+            {
+                _animator = GetComponent<Animator>();
+            }
+            return _animator;
+        }
+    }
 
     void Start()
     {
-        _animator = GetComponent<Animator>();
+        if(_animator == null )
+            _animator = GetComponent<Animator>();
     }
 }

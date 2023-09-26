@@ -1,0 +1,41 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param",
+			"GroupId": "",
+			"Name": "Eye Blink"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "Eye X Move"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "",
+			"Name": "Eye Y Move"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": [
+		{
+			"Id": "face",
+			"Name": "face"
+		},
+		{
+			"Id": "right",
+			"Name": "right"
+		},
+		{
+			"Id": "left",
+			"Name": "left"
+		}
+	],
+	"CombinedParameters": [
+		[
+			"Param2",
+			"Param3"
+		]
+	]
+}

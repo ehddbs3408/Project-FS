@@ -1,0 +1,41 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param",
+			"GroupId": "",
+			"Name": "Eye x 움직임"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "Eye y 움직임"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "",
+			"Name": "Eye Blinck"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": [
+		{
+			"Id": "face",
+			"Name": "face"
+		},
+		{
+			"Id": "right",
+			"Name": "right"
+		},
+		{
+			"Id": "Part",
+			"Name": "폴더 1"
+		}
+	],
+	"CombinedParameters": [
+		[
+			"Param",
+			"Param2"
+		]
+	]
+}

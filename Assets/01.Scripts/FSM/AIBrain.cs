@@ -30,9 +30,9 @@ public class AIBrain : MonoBehaviour
 
         stateDuractionTime = 0f;
         _beforeState = _currentState;
-        _beforeState.OnStateLeave();
+        _beforeState?.OnStateLeave();
         _currentState = state;
-        _currentState.OnStateEnter();
+        _currentState?.OnStateEnter();
     }
 
     private void Start()
@@ -97,6 +97,8 @@ public class AIBrain : MonoBehaviour
         }
         else
         {
+            if (_currentState == null) return;
+
             foreach (ConditionPair pair in _currentState._transitionList)
             {
                 if (pair.conditionAndNotList.Count == 0) continue;

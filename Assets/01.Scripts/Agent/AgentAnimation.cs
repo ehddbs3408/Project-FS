@@ -17,9 +17,16 @@ public class AgentAnimation : MonoBehaviour
         }
     }
 
+    private readonly int _hashDie = Animator.StringToHash("Die");
+
     void Start()
     {
-        if(_animator == null )
+        if(_animator == null)
             _animator = GetComponent<Animator>();
+    }
+
+    public void DieAnimation()
+    {
+        _animator.Play(_hashDie);
     }
 }

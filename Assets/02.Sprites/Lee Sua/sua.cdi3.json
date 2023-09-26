@@ -1,0 +1,41 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param4",
+			"GroupId": "",
+			"Name": "눈 깜빡임"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "눈 X 움직임"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "",
+			"Name": "눈 Y 움직임"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": [
+		{
+			"Id": "Part",
+			"Name": "폴더 1"
+		},
+		{
+			"Id": "Part2",
+			"Name": "left eye"
+		},
+		{
+			"Id": "Part3",
+			"Name": "right eye"
+		}
+	],
+	"CombinedParameters": [
+		[
+			"Param2",
+			"Param3"
+		]
+	]
+}

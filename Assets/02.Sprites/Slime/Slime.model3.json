@@ -1,0 +1,10 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "Slime.moc3",
+		"Textures": [
+			"Slime.1024/texture_00.png"
+		],
+		"DisplayInfo": "Slime.cdi3.json"
+	}
+}

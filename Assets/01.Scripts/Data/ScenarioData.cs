@@ -8,6 +8,7 @@ public class ScenarioData
 {
     public int id;
     public string name;
+    public string classStr;
     public string text;
     public string sprite;
     public int backgroundNum;

@@ -39,7 +39,7 @@ public class UIDialogue : UIBase
     private Color _backSpriteColor = new Color(0.6f, 0.6f, 0.6f);
 
 
-    private int _currentScenarioLine = 39;
+    private int _currentScenarioLine = 80;
     public override void Init()
     {
         _parent = GameObject.Find("UIDialogue");
@@ -73,18 +73,22 @@ public class UIDialogue : UIBase
             if (s == "") continue;
             string[] scenarioInfo = s.Split(",");
 
+            int i = 0;
             ScenarioData newData = new ScenarioData();
-            newData.id = int.Parse(scenarioInfo[0]);
-            newData.name = scenarioInfo[1];
-            newData.text = scenarioInfo[2];
-            newData.sprite = scenarioInfo[3];
-            newData.backgroundNum = int.Parse(scenarioInfo[4] == "" ? "0" : scenarioInfo[4]);
-            newData.soundStr = scenarioInfo[5];
-            newData.navigation = scenarioInfo[6];
-            newData.effectNum = scenarioInfo[7];
-            newData.interfaceNum = int.Parse(scenarioInfo[8] == "" ? "0" : scenarioInfo[8]);
-            newData.choice = scenarioInfo[9];
-            newData.next = int.Parse(scenarioInfo[10] == "" ? "0" : scenarioInfo[10]);
+            newData.id = int.Parse(scenarioInfo[i++]);
+            newData.name = scenarioInfo[i++];
+            newData.classStr = scenarioInfo[i++];
+            newData.text = scenarioInfo[i++];
+            newData.sprite = scenarioInfo[i++];
+            newData.backgroundNum = int.Parse(scenarioInfo[i] == "" ? "0" : scenarioInfo[i]);
+            i++;
+            newData.soundStr = scenarioInfo[i++];
+            newData.navigation = scenarioInfo[i++];
+            newData.effectNum = scenarioInfo[i++];
+            newData.interfaceNum = int.Parse(scenarioInfo[i] == "" ? "0" : scenarioInfo[i]);
+            i++;
+            newData.choice = scenarioInfo[i++];
+            newData.next = int.Parse(scenarioInfo[i] == "" ? "0" : scenarioInfo[i]);
 
             _scenarioData.Add(newData.id,newData);
         }
@@ -112,7 +116,7 @@ public class UIDialogue : UIBase
 
        
         ScenarioData data = _scenarioData[_currentScenarioLine];
-        _nameText.SetText(data.name);
+        _nameText.SetText($"{data.name}  <size=70%><#80ffff>{data.classStr}</color></size>");
         _curSentence = data.text;
         _curChoiceData = data.choice;
         _coroutine = UIManager.Instance.StartCoroutine(WriteTextLine(_curSentence,data.choice));
@@ -258,7 +262,7 @@ public class UIDialogue : UIBase
 
         _isTextLine =  true;
         
-
+        text = text.Replace("\\n", "\n");
         char[] texts = text.ToCharArray();
         //Debug.Log($"strings.Length : {texts.Length} : {texts[0]}");
         string sentence = "";

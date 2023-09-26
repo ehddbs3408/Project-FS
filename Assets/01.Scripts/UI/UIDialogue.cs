@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class UIDialogue : UIBase
 {
-    private Transform _face;
+    private GameObject _face;
     private Transform _dialogue;
     private Transform _scroll;
     private Transform _content;
@@ -21,8 +21,7 @@ public class UIDialogue : UIBase
 
     private Image _backGroundImage;
     private Image _fade;
-    private GameObject _charTemp;
-    private Dictionary<int,Image> _sprites = new Dictionary<int,Image>();
+    private Dictionary<string,GameObject> _characters = new Dictionary<string, GameObject>();
 
     private string _currentScenarioName;
     private TextAsset _currentScenarioTextAsset;
@@ -39,25 +38,24 @@ public class UIDialogue : UIBase
     private Color _backSpriteColor = new Color(0.6f, 0.6f, 0.6f);
 
 
-    private int _currentScenarioLine = 80;
+    private int _currentScenarioLine = 1;
     public override void Init()
     {
         _parent = GameObject.Find("UIDialogue");
 
-        _face = _parent.transform.Find("Face");
+        _face = GameObject.Find("Face");
         _dialogue = _parent.transform.Find("Dialogue");
         _scroll = _parent.transform.Find("Scroll");
         _content = _scroll.transform.Find("Viewport/Content");
 
         _backGroundImage = _parent.transform.Find("BackGround").GetComponent<UnityEngine.UI.Image>();
-        _fade = _parent.transform.Find("Fade").GetComponent<UnityEngine.UI.Image>();
+        _fade = _parent.transform.Find("Fade").GetComponent<Image>();
 
         _nameText = _dialogue.transform.Find("Name/NameText").GetComponent<TextMeshProUGUI>();
         _sentenceText = _dialogue.transform.Find("Text/Sentence").GetComponent<TextMeshProUGUI>();
 
         _coroutine = UIManager.Instance.StartCoroutine(WriteTextLine(_curSentence,"0"));
 
-        _charTemp = GameManager.Instance.ResourceManager_.Load<GameObject>($"Prefab/Sprite");
         _choiceBoxTemp = GameManager.Instance.ResourceManager_.Load<GameObject>($"Prefab/ChoiceBox");
     }
 
@@ -123,7 +121,7 @@ public class UIDialogue : UIBase
 
         _backGroundImage.sprite = GameManager.Instance.ResourceManager_.Load<Sprite>($"Image/BackGround/{data.backgroundNum}");
         SetSprite(data.sprite, data.interfaceNum);
-        Navigation(data.navigation, data.interfaceNum);
+        Navigation(data.navigation, data.sprite);
 
         SetEffect(data.effectNum,data.sprite,data.interfaceNum);
         if (data.next != 0)
@@ -168,35 +166,25 @@ public class UIDialogue : UIBase
     public void SetSprite(string sprite,int interfaceNum)
     {
         //BackSpriteColor();
-        if (_sprites.ContainsKey(interfaceNum) == false)
+        if (_characters.ContainsKey(sprite) == false)
         {
-            GameObject go = GameObject.Instantiate(_charTemp, _face);
-            _sprites.Add(interfaceNum, go.transform.GetComponent<Image>());
+            GameObject go = GameObject.Instantiate(GameManager.Instance.ResourceManager_.Load<GameObject>($"Prefab/Lieve2D/{sprite}"));
+            _characters.Add(sprite, go);
         }
-        _sprites[interfaceNum].sprite = GameManager.Instance.ResourceManager_.Load<Sprite>($"Image/Char/{sprite}");
-        //_sprites[interfaceNum].color = Color.white;
-    }
-    public void BackSpriteColor()
-    {
-        foreach(Image image in _sprites.Values)
-        {
-            image.color = _backSpriteColor;
-        }
+        _characters[sprite].SetActive(true);
     }
     public void DeletSprite(string sprite,int interfaceNum)
     {
-        if (_sprites.ContainsKey(interfaceNum) == false) return;
+        if (_characters.ContainsKey(sprite) == false) return;
 
-        GameObject go = _sprites[interfaceNum].transform.gameObject;
-        _sprites.Remove(interfaceNum);
-        GameObject.Destroy(go);
+        _characters[sprite].SetActive(false);
     }
-    public void Navigation(string navigation, int interfaceNum)
+    public void Navigation(string navigation, string sprite)
     {
         if (navigation != "0")
         {
             string[] pos = navigation.Split('x');
-            _sprites[interfaceNum].rectTransform.DOAnchorPos(new Vector2(int.Parse(pos[0]), int.Parse(pos[1])), float.Parse(pos[2]));
+            _characters[sprite].transform.DOMove(new Vector2(float.Parse(pos[0]), float.Parse(pos[1])), float.Parse(pos[2]));
         }
     }
     public void OnChoice(string choiceText)

@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unmanagedIndex: 2
-  Value: 1
+  Value: 0.5
 --- !u!114 &3331099145330725282
 MonoBehaviour:
   m_ObjectHideFlags: 0

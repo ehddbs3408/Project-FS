@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403ae2dd693bb1d4b924f6b8d206b053, type: 3}
   m_Name: 02.Sprites.fadeMotionList
   m_EditorClassIdentifier: 
-  MotionInstanceIds: 56ecffff40f4ffff3ee7ffff
+  MotionInstanceIds: 92f7ffff40f4ffff3ee7ffff
   CubismFadeMotionObjects:
   - {fileID: 11400000, guid: 8c3517f57b57de24bbb03ff82eb94abd, type: 2}
   - {fileID: 11400000, guid: 904b0a92bf9e78e41a5313b804ca2ea9, type: 2}

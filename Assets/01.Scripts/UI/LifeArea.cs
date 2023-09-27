@@ -18,6 +18,7 @@ public class LifeArea : MonoBehaviour
 
     public void UpdateHeart()
     {
+        if (ProjectileManager.Instance.GetAgent().CurrentHP < 0) return;
         _lifeList[ProjectileManager.Instance.GetAgent().CurrentHP].UpdateHeart(false);
     }
 }

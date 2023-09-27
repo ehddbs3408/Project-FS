@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ProjectileManager : MonoBehaviour
 {
@@ -12,12 +13,17 @@ public class ProjectileManager : MonoBehaviour
     [SerializeField]
     private Agent _agent;
 
+    private AIBrain _fsm;
+    public AIBrain FSM => _fsm;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
         }
+
+        _fsm = GetComponent<AIBrain>();
     }
 
     public Agent GetAgent()
@@ -46,5 +52,15 @@ public class ProjectileManager : MonoBehaviour
         }
 
         _bulletList.Clear();
+    }
+
+    public void StopStage()
+    {
+        _fsm.ChangeState(null);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("MiniGame");
     }
 }

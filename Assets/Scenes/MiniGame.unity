@@ -1652,14 +1652,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1208704606, guid: fc33578a96f874c45ab2a602942780d8, type: 3}
-      propertyPath: OnDieEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1208704606, guid: fc33578a96f874c45ab2a602942780d8, type: 3}
-      propertyPath: OnDieEvent.m_PersistentCalls.m_Calls.Array.data[5].m_Mode
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1208704606, guid: fc33578a96f874c45ab2a602942780d8, type: 3}
       propertyPath: OnDieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 19476934}
@@ -1700,29 +1692,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 519057520}
     - target: {fileID: 1208704606, guid: fc33578a96f874c45ab2a602942780d8, type: 3}
-      propertyPath: OnDieEvent.m_PersistentCalls.m_Calls.Array.data[5].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1208704606, guid: fc33578a96f874c45ab2a602942780d8, type: 3}
-      propertyPath: OnDieEvent.m_PersistentCalls.m_Calls.Array.data[5].m_MethodName
-      value: SetActive
-      objectReference: {fileID: 0}
-    - target: {fileID: 1208704606, guid: fc33578a96f874c45ab2a602942780d8, type: 3}
-      propertyPath: OnDieEvent.m_PersistentCalls.m_Calls.Array.data[5].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 1208704606, guid: fc33578a96f874c45ab2a602942780d8, type: 3}
-      propertyPath: OnDieEvent.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_BoolArgument
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1208704606, guid: fc33578a96f874c45ab2a602942780d8, type: 3}
       propertyPath: OnDieEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 813791432}
-    - target: {fileID: 1208704606, guid: fc33578a96f874c45ab2a602942780d8, type: 3}
-      propertyPath: OnDieEvent.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 1771172208608102247, guid: fc33578a96f874c45ab2a602942780d8, type: 3}
       propertyPath: m_Name
       value: Player
